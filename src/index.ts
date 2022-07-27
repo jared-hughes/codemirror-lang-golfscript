@@ -6,7 +6,8 @@ export const golfScriptLanguage = LRLanguage.define({
   parser: parser.configure({
     props: [
       styleTags({
-        Identifier: t.variableName,
+        Identifier: t.definition(t.variableName),
+        Builtin: t.variableName,
         Number: t.number,
         String: t.string,
         LineComment: t.lineComment,

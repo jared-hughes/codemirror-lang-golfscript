@@ -8,9 +8,21 @@ expression {
   Assignment { ":" syntaxIdentifier }
 }
 
-syntaxIdentifier { Identifier | String | Number }
+syntaxIdentifier { Builtin | Identifier | String | Number }
 
 Identifier { wordIdentifier | singleByteIdentifier }
+
+Builtin {
+  @specialize<singleByteIdentifier,
+    "~" | "`" | "!" | "@" | "$" | "+" | "-" | "*" | "/" |
+    "%" | "|" | "&" | "^" | "[" | "]" | "\\" | ";" | "<" |
+    ">" | "=" | "," | "." | "?" | "(" | ")"
+  > |
+  @specialize<wordIdentifier,
+    "and" | "or" | "xor" | "print" | "p" | "n" | "puts" | "rand" |
+    "do" | "while" | "until" | "if" | "abs" | "zip" | "base"
+  >
+}
 
 @tokens {
   wordIdentifier { $[a-zA-Z_]$[a-zA-Z0-9_]* }
