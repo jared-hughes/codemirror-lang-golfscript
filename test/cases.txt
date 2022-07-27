@@ -1,41 +1,78 @@
-# Booleans
-
-#t
-#f
-
-==>
-
-Program(Boolean, Boolean)
-
 # Identifiers
 
-one
-Two_Three
+abc
+_123
+___
+^& *
 
 ==>
 
-Program(Identifier, Identifier)
+Program(
+  Identifier, Identifier,
+  Identifier, Identifier,
+  Identifier, Identifier,
+  Identifier, Identifier, Identifier, Identifier
+)
 
 # Strings
 
 "hello"
 "one\"\\two"
+'hello'
+'\''
 
 ==>
 
-Program(String, String)
+Program(String, Identifier, String, Identifier, String, Identifier, String)
 
-# Applications
+# Numbers
 
-(begin
-  (when #t
-    (print (concat "hello" " " "world")))
-  (print "DONE"))
+1-2-3-
+56789- 3
 
 ==>
 
-Program(Application(
-  Identifier,
-  Application(Identifier, Boolean, Application(
-    Identifier, Application(Identifier, String, String, String)))
-  Application(Identifier, String)))
+Program(
+  Number, Number, Number, Identifier, Identifier,
+  Number, Identifier, Identifier, Number
+)
+
+# LineComment
+
+1#abc
+#def#ghi
+
+==>
+
+Program(
+  Number, LineComment, Identifier,
+  LineComment
+)
+
+# Block
+
+{5+}/
+{
+.
+}
+
+==>
+
+Program(
+  Block(Number, Identifier), Identifier, Identifier,
+  Block(Identifier, Identifier, Identifier)
+)
+
+# Assignment
+
+1:abc
+:'d'
+:7
+
+==>
+
+Program(
+  Number, Assignment(Identifier), Identifier,
+  Assignment(String), Identifier,
+  Assignment(Number)
+)
